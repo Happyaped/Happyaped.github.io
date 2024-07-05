@@ -4,23 +4,23 @@
   
     
     <entry>
-      <title>test</title>
-      <link href="/2024/07/03/test/"/>
-      <url>/2024/07/03/test/</url>
+      <title>Git学习笔记</title>
+      <link href="/2024/07/03/git/"/>
+      <url>/2024/07/03/git/</url>
       
-        <content type="html"><![CDATA[<h1 id="测试Hexo文章生成"><a href="#测试Hexo文章生成" class="headerlink" title="测试Hexo文章生成"></a>测试Hexo文章生成</h1><p>test test test</p><p><img src="/img/mitoma.jpg" alt="alt text"></p><p><img src="/image-1.png" alt="alt text"></p>]]></content>
+        <content type="html"><![CDATA[<h1 id="git学习笔记"><a href="#git学习笔记" class="headerlink" title="git学习笔记"></a>git学习笔记</h1><h2 id="一、基础知识"><a href="#一、基础知识" class="headerlink" title="一、基础知识"></a>一、基础知识</h2><ol><li>git是分布式版本控制，而CVS和SVN是集中式的版本控制</li></ol><h2 id="二、三种状态"><a href="#二、三种状态" class="headerlink" title="二、三种状态"></a>二、三种状态</h2><ol><li>概念解释：工作区就是电脑里面能看到的目录<br><img src="/pictures/git_1.png" alt="alt text"></li></ol><p>版本库就是.git隐藏文件里面包含了暂存区stage，各个分支以及指针HEAD<br><img src="/pictures/git_2.png" alt="alt text"></p><ol><li>一个文件从来没有被在版本信息中为Untracked，改动已经被提交，也就是commit过后没有动就是Unmodified，一个文件已经被修改但是还没有被git add就是Modified，Stage就是指已经被add了但是还没有被commit的文件<br><img src="/pictures/git_3.png" alt="alt text"></li><li>修改了没有add就是Changes not staged for commit而add了还没有commit就是Changes to be committed,Untracked file就是文件从未被添加</li></ol><h2 id="三、git基本操作"><a href="#三、git基本操作" class="headerlink" title="三、git基本操作"></a>三、git基本操作</h2><ol><li>git init作用是初始化目录作为git仓库</li><li>git add提交到了暂存区 . 和 -A参数的区别在于 .不会把删除给提交，而-A会，所以-A更全面</li><li>git commit -m”instruction message”提交到</li><li>git status查看当前文件夹下的状态</li><li>git diff查看修改内容</li><li>git log查看提交日志，可以加上–pretty&#x3D;oneline参数看省流版本</li><li>版本回退使用git reset –hard 版本号</li><li>对于版本回退后不知道原来版本的版本号的，可以使用git reflog命令</li><li>git checkout – 文件名就是交到了暂存区之后还未被commit之前又做了修改，但是我不想要这个修改了，就用了这条指令来回退到add之后的版本</li><li>要撤销暂存区到工作区，可以git reset HEAD 文件名（也就是add了之后commit之前不想要暂存区的东西了）</li><li>git rm可以删除版本库里面的文件</li><li>git fetch可以将远程仓库的更新拉取到本地，但是不合并，git pull &#x3D; git fetch + git merge</li><li>对于大文件，git一般不允许几十MB及以上的提交，可以用git-lfs</li></ol><h2 id="四、远程仓库"><a href="#四、远程仓库" class="headerlink" title="四、远程仓库"></a>四、远程仓库</h2><ol><li>git remote add origin git+网址添加远程仓库</li><li>git push -u origin master推送本地库的所有内容到远程库</li><li>git clone和git pull的区别在于git clone包含了所有的历史提交，而git pull只是最新的提交而且git pull需要先git remote add SSH</li></ol><h2 id="五、分支管理"><a href="#五、分支管理" class="headerlink" title="五、分支管理"></a>五、分支管理</h2><ol><li>HEAD指向的是当前分支，master分支是主分支<br><img src="/pictures/git_4.png" alt="alt text"></li><li>master指向的是提交</li><li>git checkout -b 分支名创建并切换到新分支</li><li>git branch查看分支git branch -d 分支名则是删除这个分支</li><li>switch也可以用于分支相关的操作</li><li>git log也可以查看分支图</li><li>git stash可以暂存工作现场</li><li>cherry-pick命令可以复制一个特定的提交</li><li>git branch -D可以强行删除没有合并的分支</li><li>切换分支之前一定要add并commit，否则会有残留的之前分支的内容</li></ol><h2 id="六、-gitignore文件的编写"><a href="#六、-gitignore文件的编写" class="headerlink" title="六、.gitignore文件的编写"></a>六、.gitignore文件的编写</h2><ol><li>以&#x2F;开头表示从根目录下选</li><li>文件的匹配是基于字符串的而不是正则表达式，所以说比如test则是把所有含有test的都忽略，test.py则是忽略该文件，而test.*则是忽略以test为名的所有类型的文件。</li><li>！可以取消忽略，比如之前忽略了test.py文件可以用！test.py来覆盖</li><li>子文件夹的.gitignore文件会覆盖父文件夹中的.gitignore文件</li><li>git checkout lab</li></ol><h2 id="七、Git协议以及公钥使用"><a href="#七、Git协议以及公钥使用" class="headerlink" title="七、Git协议以及公钥使用"></a>七、Git协议以及公钥使用</h2><ol><li>本地协议（Local），HTTP 协议，SSH（Secure Shell）协议及 Git 协议四种协议</li><li>在默认情况下SSH密钥是存储在~&#x2F;.ssh下可以看是否存在id_dsa(pub)文件，id_dsa.pub是存储公钥的，而id_dsa是存储密钥的，如果没有的话可以<code>ssh-keygen -o</code>来生成公钥和密钥。</li></ol>]]></content>
       
       
       <categories>
           
-          <category> C# </category>
+          <category> Git </category>
           
       </categories>
       
       
         <tags>
             
-            <tag> test </tag>
+            <tag> Git </tag>
             
         </tags>
       
