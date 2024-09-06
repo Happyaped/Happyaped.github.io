@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>编译原理基本概念</title>
+      <link href="/2024/09/06/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E6%A6%82%E5%BF%B5/"/>
+      <url>/2024/09/06/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E6%A6%82%E5%BF%B5/</url>
+      
+        <content type="html"><![CDATA[<h1 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h1><h2 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h2><p>一般是将高级语言(e.g. C，Java···)转换为汇编语言(指令集)的过程</p><h2 id="汇编"><a href="#汇编" class="headerlink" title="汇编"></a>汇编</h2><p>将汇编语言转换为机器语言(二进制码)的过程</p><h2 id="编译过程"><a href="#编译过程" class="headerlink" title="编译过程"></a>编译过程</h2><p>编译过程包含了词法分析，语法分析，语义分析生成中间代码，代码优化和生成目标程序五个阶段</p><h3 id="词法分析"><a href="#词法分析" class="headerlink" title="词法分析"></a>词法分析</h3><p>将源程序字符串根据该种语言的词法规定识别单词并以编码形式输出</p><h3 id="语法分析"><a href="#语法分析" class="headerlink" title="语法分析"></a>语法分析</h3><p>根据语法规则，分析并识别出各种语法成分(递归下降)</p><h3 id="语义分析生产中间代码"><a href="#语义分析生产中间代码" class="headerlink" title="语义分析生产中间代码"></a>语义分析生产中间代码</h3><p>对识别出的各种语法成分进行语义分析并产生中间代码，中间代码是一种介于源语言和目标程序的中间形式，中间代码好处是便于优化处理和 编译程序的移植</p><p>中间代码的形式包含了四元式，三元式，逆波兰表示等<br>代码优化是为了得到高质量的目标程序</p><h3 id="符号表管理"><a href="#符号表管理" class="headerlink" title="符号表管理"></a>符号表管理</h3><p>在编译过程中需要进行见表并及时记录源程序信息和编译过程中产生的信息</p><h3 id="出错处理"><a href="#出错处理" class="headerlink" title="出错处理"></a>出错处理</h3><p>源程序可能存在错误，编译器需要报告出错误的种类和位置方便用户修改</p><h3 id="前端"><a href="#前端" class="headerlink" title="前端"></a>前端</h3><p>和源程序有关的部分，包含了词法语法分析，语义分析，中间代码生成，代码优化</p><h3 id="后端"><a href="#后端" class="headerlink" title="后端"></a>后端</h3><p>和目标机有关的部分，包含了目标程序生成</p><h2 id="流程图"><a href="#流程图" class="headerlink" title="流程图"></a>流程图</h2><p><img src="/pictures/CompileProcess.png" alt="alt text"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Compile </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 编译原理 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>算法开课前的知识回顾</title>
       <link href="/2024/09/02/%E7%AE%97%E6%B3%95%E5%9B%9E%E9%A1%BE/"/>
       <url>/2024/09/02/%E7%AE%97%E6%B3%95%E5%9B%9E%E9%A1%BE/</url>
