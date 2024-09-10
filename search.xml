@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>机器学习基本概念</title>
+      <link href="/2024/09/10/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%85%A5%E9%97%A8%E6%A6%82%E5%BF%B5/"/>
+      <url>/2024/09/10/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%85%A5%E9%97%A8%E6%A6%82%E5%BF%B5/</url>
+      
+        <content type="html"><![CDATA[<h1 id="机器学习笔记"><a href="#机器学习笔记" class="headerlink" title="机器学习笔记"></a>机器学习笔记</h1><h2 id="机器学习"><a href="#机器学习" class="headerlink" title="机器学习"></a>机器学习</h2><p>给定任务T，给定经验数据E，还有评价标准P</p><h2 id="有监督无监督学习"><a href="#有监督无监督学习" class="headerlink" title="有监督无监督学习"></a>有监督无监督学习</h2><p>是否带上标签</p><h2 id="训练"><a href="#训练" class="headerlink" title="训练"></a>训练</h2><p>根据结果拟合出一个 y &#x3D; f(x)的f，拟合的话存在欠拟合和过拟合问题<br><img src="/pictures/MachineLearningConcept(1).png" alt="alt text"></p><h2 id="误差"><a href="#误差" class="headerlink" title="误差"></a>误差</h2><p>误差是指学习器的实际输出和真实输出之间的差异，泛化误差是指在新样本上的误差，经验误差是指在训练集上的误差</p><h2 id="数据集"><a href="#数据集" class="headerlink" title="数据集"></a>数据集</h2><p>数据集D包含了训练集S(作业)和测试集T(高考)和验证机V(月考)，原则上S和T和V需要尽量互斥来保证效果，验证集上可以调整超参数，对模型初步评估和选择，</p><h3 id="数据集划分"><a href="#数据集划分" class="headerlink" title="数据集划分"></a>数据集划分</h3><h4 id="保持-流出法"><a href="#保持-流出法" class="headerlink" title="保持&#x2F;流出法"></a>保持&#x2F;流出法</h4><p>三分之二的训练集，三分之一的测试集，训练集导出模型来用测试集估计泛化误差，优点是简单，缺点是非常受数据的划分影响<br><img src="/pictures/MachineLearningConcept(2).png" alt="alt text"></p><h4 id="随即子抽样"><a href="#随即子抽样" class="headerlink" title="随即子抽样"></a>随即子抽样</h4><p>随机选择训练集和测试集，将保持方法重复k次，但是还是因为随机可能覆盖不全</p><h4 id="K折交叉验证"><a href="#K折交叉验证" class="headerlink" title="K折交叉验证"></a>K折交叉验证</h4><p>分成k个大小相似的部分，每次选一个作为测试集而剩下的全部是训练集，充分保证了训练的效果，因为都做过测试集和训练集<br><img src="/pictures/MachineLearningConcept(3).png" alt="alt text"></p><h4 id="留一法"><a href="#留一法" class="headerlink" title="留一法"></a>留一法</h4><p>特殊的K折交叉验证，训练集选K-1个，训练k次</p><h4 id="自助法"><a href="#自助法" class="headerlink" title="自助法"></a>自助法</h4><p>有放回的均匀抽样，小数据集的效果好过K折交叉验证</p><h2 id="性能度量"><a href="#性能度量" class="headerlink" title="性能度量"></a>性能度量</h2><h3 id="回归任务"><a href="#回归任务" class="headerlink" title="回归任务"></a>回归任务</h3><p>均方误差<br><img src="/pictures/MachineLearningConcept(4).png" alt="alt text"></p><h3 id="分类任务"><a href="#分类任务" class="headerlink" title="分类任务"></a>分类任务</h3><p>错误率和精度(缺失的部分代表true就加1)<br><img src="/pictures/MachineLearningConcept(5).png" alt="alt text"></p><h3 id="混淆矩阵"><a href="#混淆矩阵" class="headerlink" title="混淆矩阵"></a>混淆矩阵</h3><p><img src="/pictures/MachineLearningConcept(6).png" alt="alt text"></p><h3 id="四种性质"><a href="#四种性质" class="headerlink" title="四种性质"></a>四种性质</h3><p>敏感性是识别正确的能力；<br>特异性是识别错误的能力；<br>准确率正确识别正负样本的能力；<br>错误率错误识别正负样本的能力</p><h3 id="查准率和查全率"><a href="#查准率和查全率" class="headerlink" title="查准率和查全率"></a>查准率和查全率</h3><p>查准率是指正样本中的真正样本占比</p><p>查全率是指正确识别正样品的能力，等同于敏感性。</p><p>查准率和查全率相互矛盾，查准率高查全率就低了，查全率高查准率就低了(e.g.挑选西瓜时的选样本数量)<br><img src="/pictures/MachineLearningConcept(7).png" alt="alt text"></p><h3 id="P-R曲线"><a href="#P-R曲线" class="headerlink" title="P-R曲线"></a>P-R曲线</h3><p>以查准率为纵轴，查全率为横轴的图标，把最可能是正样本个体排在前面(先挑选有把握的西瓜)，后面是模型认为最不可能为正例的样本，体现了上文的选西瓜过程<br><img src="/pictures/MachineLearningConcept(8).png" alt="alt text"></p><h3 id="F分数"><a href="#F分数" class="headerlink" title="F分数"></a>F分数</h3><p>F1调和精度和召回率，还有$F_β$<br><img src="/pictures/MachineLearningConcept(9).png" alt="alt text"></p><h3 id="代价敏感性能度量"><a href="#代价敏感性能度量" class="headerlink" title="代价敏感性能度量"></a>代价敏感性能度量</h3><p>也就是FP和FN两种情况的代价<br><img src="/pictures/MachineLearningConcept(10).png" alt="alt text"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Machine Learning </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 机器学习 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>算法概念</title>
       <link href="/2024/09/09/%E7%AE%97%E6%B3%95%E6%A6%82%E5%BF%B5/"/>
       <url>/2024/09/09/%E7%AE%97%E6%B3%95%E6%A6%82%E5%BF%B5/</url>
