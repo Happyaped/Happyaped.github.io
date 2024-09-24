@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>词法分析</title>
+      <link href="/2024/09/24/%E8%AF%8D%E6%B3%95%E5%88%86%E6%9E%90/"/>
+      <url>/2024/09/24/%E8%AF%8D%E6%B3%95%E5%88%86%E6%9E%90/</url>
+      
+        <content type="html"><![CDATA[<h1 id="词法分析"><a href="#词法分析" class="headerlink" title="词法分析"></a>词法分析</h1><h2 id="概念释义"><a href="#概念释义" class="headerlink" title="概念释义"></a>概念释义</h2><p>通常我们所写的程序在我们看来是各个组成成分分明有序的，但是对于计算机而言却是由一堆字母、数字、以及符号以及换行符等组成的而没有进行分类，所以我们需要词法分析来帮助计算机认识到这些组成成分。<br><img src="/pictures/Lexer(1).png" alt="alt text"></p><h2 id="编码完成前"><a href="#编码完成前" class="headerlink" title="编码完成前"></a>编码完成前</h2><p>这是第一次作业，所以编码完成前是没有东西的</p><h2 id="编码完成后"><a href="#编码完成后" class="headerlink" title="编码完成后"></a>编码完成后</h2><p>本次编码完成了词法分析的任务，对于正确的源程序可以输出各个单词本身及其类别码，对于错误的源程序而言，我们可以输出错误的行号和错误的类型，本次错误只包含了逻辑与表达式和逻辑或表达式，本次任务涵盖了各种单词类别码，单行注释，多行注释。<br><img src="/pictures/Lexer(2).png" alt="alt text"><br>我使用Java完成的词法分析，文件包含了顶层文件Compiler.java，输入处理文件ParserInput.java，词法识别处理文件Lexer，词法基本单元和集合Token.java，TokenList.java，枚举类文件TokenType。其中ParserInput负责了接受输入文件并将其转换为一个String变量inputLine，之后Lexer文件会根据这个String变量来进行词法处理，Token属性包含了TokenType，其所在行数LineNum以及它的实际值value，TokenList就是Token的Arraylist，Lexer需要遍历inputLine，区分如上图的单词类别并且存入TokenList之中，对于上图的单词类别码，可以分为字母开头，数字开头，各类符号开头以及Ident开头，总体而言就是switch或者一堆if-else，也可以用正则表达式来完成，字母和数字开头的我们可以写一个getNum和getLetter来完成一整个数字或者单词的读入，对于各类符号开头我们需要注意进行分类，比如说像是&#x3D;和&#x3D;&#x3D;，我们需要读入第一个&#x3D;后进行判断是那种类别码，对于Ident开头是需要注意的，因为可以有特有的下划线开头，所以可以单独写一个isIdentBegin来判断是否是Ident类型开头，而Ident的后续可以是随意排序的字母，数字和下划线，所以可以再写一个getIdent来读入后续的Ident部分之后拼接起来。</p><p>对于单行注释和多行注释需要注意跨行的时候行数要++，完成方法基本同上。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Compile </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 编译原理 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>机器学习基本概念</title>
       <link href="/2024/09/10/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%85%A5%E9%97%A8%E6%A6%82%E5%BF%B5/"/>
       <url>/2024/09/10/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%85%A5%E9%97%A8%E6%A6%82%E5%BF%B5/</url>
