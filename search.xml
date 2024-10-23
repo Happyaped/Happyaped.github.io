@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>语义分析和错误处理</title>
+      <link href="/2024/10/23/%E8%AF%AD%E4%B9%89%E5%88%86%E6%9E%90%E5%92%8C%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86/"/>
+      <url>/2024/10/23/%E8%AF%AD%E4%B9%89%E5%88%86%E6%9E%90%E5%92%8C%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86/</url>
+      
+        <content type="html"><![CDATA[<h1 id="语义分析和错误处理报告"><a href="#语义分析和错误处理报告" class="headerlink" title="语义分析和错误处理报告"></a>语义分析和错误处理报告</h1><h2 id="概念释义"><a href="#概念释义" class="headerlink" title="概念释义"></a>概念释义</h2><p>对于一个程序而言，如果某些地方出现了问题编译器需要指出对应的错误和行号，而错误分析中的某些部分比如说重定义和未定义则需要符号表来辅助完成，符号表可以帮助我们识别到各个变量，函数名和参数的作用域，可以很好的服务于错误分析处理，<br>词法分析让计算机从字符串中分出了Token，而语法分析让计算机了解了这些Token之间的关系，语义分析则是分出层次，建立符号表来体现各个函数和变量和参数的作用域，错误处理则服务于错误程序的行号和种类的报错。</p><h2 id="编码完成前"><a href="#编码完成前" class="headerlink" title="编码完成前"></a>编码完成前</h2><p>我们已经完成了词法分析和语法分析以及少量的错误处理，如上文所述，已经完成了Token之间的关系的建立</p><h2 id="编码完成后"><a href="#编码完成后" class="headerlink" title="编码完成后"></a>编码完成后</h2><p>本次任务完成了语义分析和大量错误处理，对于正确的源程序而言，可以输出各个函数名和变量名和参数的种类和名称以及作用域层级，对于错误的源程序而言，可以按照行号顺序输出错误的种类和行号。</p><p>其中函数名和变量名类型如下：<br><img src="/pictures/CompilerHandleError(1).png" alt="alt text"></p><p>所有的错误处理类型如下：<br><img src="/pictures/CompilerHandleError(2).png" alt="alt text"><br><img src="/pictures/CompilerHandleError(3).png" alt="alt text"></p><p>本程序包含了四个部分，其中TokenPart为第一次所完成，本次的重点在于ErrorPart，ParserPart和新加的SymbolPart，其中ErrorPart添加了新的错误种类，而ParserPart则是需要修改解析过程，添加符号表以及进行新的错误处理，<br>而SymbolPart则是进行符号表的构造和记录以及种类的列举。</p><p>对于ErrorPart而言，需要加的地方就是添加枚举类ErrorType中加上新加的错误种类就好，还需要注意的是添加错误时候需要判断里面没有该错误再添加，这与本次修改的一个语法分析的bug有关，涉及到了回溯的问题所以不能添加两次。</p><p>对于SymbolPart而言，他的文件包含了枚举类SymbolType，Symbol作为符号，SymbolTable用来作为符号表来收集，构造类似于ErrorPart，需要注意的是由于最后对于正确程序的输出讲究先按照层次先后同一再按照先后顺序来<br>输出的原因，所以我们的SymbolTable的成员变量需要包含SymbolTable parent和ArrayList<SymbolTable> children来进行记录方便最后输出，同时我还在SymbolPart部分加上了一个静态类文件DepthCounter用来记录<br>作用域的层次和是否当前指向的token在for循环中(服务于判断break和continue是否在循环体的错误)以及一个用来记录函数的返回值类型的变量(服务于判断return的是否符合函数返回值)。</p><p>对于ParsePart而言，我选择的是修改parse部分来在一次解析的过程中既完成解析也完成符号表添加和错误处理，也有同学选择了再解析一次来完成符号表添加的功能，其中包含了添加符号表，产生子表，进行错误处理三个部分的添加。</p><p>对于添加符号表而言，很明显，符号表包含了函数名和变量名和参数，所以我们需要在4个地方进行添加，分别是ConstDef，VarDef，FuncFParams和FuncDef，前两个对应了变量名，第三个是参数最后一个是函数名。</p><p>对于产生子表而言，我们知道在参数和block内层中层次会加一，所以我们需要在FuncDef和Block里面产生子表，具体而言就是ArrayList<SymbolTable> children里面add一个SymbolTable child,然后把child的parent设置为this然后层次加一。</p><p>对于最重要的错误处理而言，里面需要注意的有d错误和e错误，这由于需要判断传参的数量和种类是否相符，这使得我们在记录函数类型的Symbol的时候需要同时记录他之后传参的类型和数量，可以用ArrayList<SymbolType>来进行记录，同时<br>我们需要注意在FuncDef中产生子表的作用域是FuncFParams以及之后，但是我们Ident添加符号表的时候又需要在ParseFuncFParams之后，那是否意味着Ident的添加层次会出错？因此我们需要一个变量来记录产生子表之前的SymbolTable来保证Ident正确添加符号表。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Compile </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 编译原理 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>语法分析</title>
       <link href="/2024/10/11/%E8%AF%AD%E6%B3%95%E5%88%86%E6%9E%90/"/>
       <url>/2024/10/11/%E8%AF%AD%E6%B3%95%E5%88%86%E6%9E%90/</url>

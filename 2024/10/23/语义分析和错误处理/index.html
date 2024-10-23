@@ -1,0 +1,225 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>语义分析和错误处理 | Happyaped's Blog</title><meta name="author" content="Happyaped"><meta name="copyright" content="Happyaped"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="ffffff"><meta name="description" content="语义分析和错误处理报告概念释义对于一个程序而言，如果某些地方出现了问题编译器需要指出对应的错误和行号，而错误分析中的某些部分比如说重定义和未定义则需要符号表来辅助完成，符号表可以帮助我们识别到各个变量，函数名和参数的作用域，可以很好的服务于错误分析处理，词法分析让计算机从字符串中分出了Token，而语法分析让计算机了解了这些Token之间的关系，语义分析则是分出层次，建立符号表来体现各个函数和变量">
+<meta property="og:type" content="article">
+<meta property="og:title" content="语义分析和错误处理">
+<meta property="og:url" content="https://happyaped.github.io/2024/10/23/%E8%AF%AD%E4%B9%89%E5%88%86%E6%9E%90%E5%92%8C%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86/index.html">
+<meta property="og:site_name" content="Happyaped&#39;s Blog">
+<meta property="og:description" content="语义分析和错误处理报告概念释义对于一个程序而言，如果某些地方出现了问题编译器需要指出对应的错误和行号，而错误分析中的某些部分比如说重定义和未定义则需要符号表来辅助完成，符号表可以帮助我们识别到各个变量，函数名和参数的作用域，可以很好的服务于错误分析处理，词法分析让计算机从字符串中分出了Token，而语法分析让计算机了解了这些Token之间的关系，语义分析则是分出层次，建立符号表来体现各个函数和变量">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://happyaped.github.io/img/mitoma.jpg">
+<meta property="article:published_time" content="2024-10-23T06:00:00.000Z">
+<meta property="article:modified_time" content="2024-10-23T14:21:09.974Z">
+<meta property="article:author" content="Happyaped">
+<meta property="article:tag" content="编译原理">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://happyaped.github.io/img/mitoma.jpg"><link rel="shortcut icon" href="/img/Qi.jpg"><link rel="canonical" href="https://happyaped.github.io/2024/10/23/%E8%AF%AD%E4%B9%89%E5%88%86%E6%9E%90%E5%92%8C%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":230},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Error',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '语义分析和错误处理',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-10-23 22:21:09'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const now = new Date()
+          const hour = now.getHours()
+          const isNight = hour <= 6 || hour >= 18
+          if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+          else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/Qi.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">14</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">6</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">6</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/mitoma.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="Happyaped's Blog"><span class="site-name">Happyaped's Blog</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> Search</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">语义分析和错误处理</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2024-10-23T06:00:00.000Z" title="Created 2024-10-23 14:00:00">2024-10-23</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2024-10-23T14:21:09.974Z" title="Updated 2024-10-23 22:21:09">2024-10-23</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Compile/">Compile</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word Count:</span><span class="word-count">1.2k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading Time:</span><span>3mins</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="语义分析和错误处理"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="语义分析和错误处理报告"><a href="#语义分析和错误处理报告" class="headerlink" title="语义分析和错误处理报告"></a>语义分析和错误处理报告</h1><h2 id="概念释义"><a href="#概念释义" class="headerlink" title="概念释义"></a>概念释义</h2><p>对于一个程序而言，如果某些地方出现了问题编译器需要指出对应的错误和行号，而错误分析中的某些部分比如说重定义和未定义则需要符号表来辅助完成，符号表可以帮助我们识别到各个变量，函数名和参数的作用域，可以很好的服务于错误分析处理，<br>词法分析让计算机从字符串中分出了Token，而语法分析让计算机了解了这些Token之间的关系，语义分析则是分出层次，建立符号表来体现各个函数和变量和参数的作用域，错误处理则服务于错误程序的行号和种类的报错。</p>
+<h2 id="编码完成前"><a href="#编码完成前" class="headerlink" title="编码完成前"></a>编码完成前</h2><p>我们已经完成了词法分析和语法分析以及少量的错误处理，如上文所述，已经完成了Token之间的关系的建立</p>
+<h2 id="编码完成后"><a href="#编码完成后" class="headerlink" title="编码完成后"></a>编码完成后</h2><p>本次任务完成了语义分析和大量错误处理，对于正确的源程序而言，可以输出各个函数名和变量名和参数的种类和名称以及作用域层级，对于错误的源程序而言，可以按照行号顺序输出错误的种类和行号。</p>
+<p>其中函数名和变量名类型如下：<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/pictures/CompilerHandleError(1).png" alt="alt text"></p>
+<p>所有的错误处理类型如下：<br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/pictures/CompilerHandleError(2).png" alt="alt text"><br><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/pictures/CompilerHandleError(3).png" alt="alt text"></p>
+<p>本程序包含了四个部分，其中TokenPart为第一次所完成，本次的重点在于ErrorPart，ParserPart和新加的SymbolPart，其中ErrorPart添加了新的错误种类，而ParserPart则是需要修改解析过程，添加符号表以及进行新的错误处理，<br>而SymbolPart则是进行符号表的构造和记录以及种类的列举。</p>
+<p>对于ErrorPart而言，需要加的地方就是添加枚举类ErrorType中加上新加的错误种类就好，还需要注意的是添加错误时候需要判断里面没有该错误再添加，这与本次修改的一个语法分析的bug有关，涉及到了回溯的问题所以不能添加两次。</p>
+<p>对于SymbolPart而言，他的文件包含了枚举类SymbolType，Symbol作为符号，SymbolTable用来作为符号表来收集，构造类似于ErrorPart，需要注意的是由于最后对于正确程序的输出讲究先按照层次先后同一再按照先后顺序来<br>输出的原因，所以我们的SymbolTable的成员变量需要包含SymbolTable parent和ArrayList<SymbolTable> children来进行记录方便最后输出，同时我还在SymbolPart部分加上了一个静态类文件DepthCounter用来记录<br>作用域的层次和是否当前指向的token在for循环中(服务于判断break和continue是否在循环体的错误)以及一个用来记录函数的返回值类型的变量(服务于判断return的是否符合函数返回值)。</p>
+<p>对于ParsePart而言，我选择的是修改parse部分来在一次解析的过程中既完成解析也完成符号表添加和错误处理，也有同学选择了再解析一次来完成符号表添加的功能，其中包含了添加符号表，产生子表，进行错误处理三个部分的添加。</p>
+<p>对于添加符号表而言，很明显，符号表包含了函数名和变量名和参数，所以我们需要在4个地方进行添加，分别是ConstDef，VarDef，FuncFParams和FuncDef，前两个对应了变量名，第三个是参数最后一个是函数名。</p>
+<p>对于产生子表而言，我们知道在参数和block内层中层次会加一，所以我们需要在FuncDef和Block里面产生子表，具体而言就是ArrayList<SymbolTable> children里面add一个SymbolTable child,然后把child的parent设置为this然后层次加一。</p>
+<p>对于最重要的错误处理而言，里面需要注意的有d错误和e错误，这由于需要判断传参的数量和种类是否相符，这使得我们在记录函数类型的Symbol的时候需要同时记录他之后传参的类型和数量，可以用ArrayList<SymbolType>来进行记录，同时<br>我们需要注意在FuncDef中产生子表的作用域是FuncFParams以及之后，但是我们Ident添加符号表的时候又需要在ParseFuncFParams之后，那是否意味着Ident的添加层次会出错？因此我们需要一个变量来记录产生子表之前的SymbolTable来保证Ident正确添加符号表。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="https://happyaped.github.io">Happyaped</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://happyaped.github.io/2024/10/23/%E8%AF%AD%E4%B9%89%E5%88%86%E6%9E%90%E5%92%8C%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86/">https://happyaped.github.io/2024/10/23/%E8%AF%AD%E4%B9%89%E5%88%86%E6%9E%90%E5%92%8C%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/">编译原理</a></div><div class="post_share"><div class="social-share" data-image="/img/mitoma.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2024/10/11/%E8%AF%AD%E6%B3%95%E5%88%86%E6%9E%90/" title="语法分析"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/CR7_1.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">Next</div><div class="next_info">语法分析</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><div><a href="/2024/09/24/%E8%AF%8D%E6%B3%95%E5%88%86%E6%9E%90/" title="词法分析"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/CR7_1.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-09-24</div><div class="title">词法分析</div></div></a></div><div><a href="/2024/09/06/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E6%A6%82%E5%BF%B5/" title="编译原理基本概念"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/CR7_1.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-09-06</div><div class="title">编译原理基本概念</div></div></a></div><div><a href="/2024/10/11/%E8%AF%AD%E6%B3%95%E5%88%86%E6%9E%90/" title="语法分析"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/CR7_1.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-10-11</div><div class="title">语法分析</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/Qi.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Happyaped</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">14</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">6</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">6</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Happyaped"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/Happyaped" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">Welcome to Happyaped's Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%AF%AD%E4%B9%89%E5%88%86%E6%9E%90%E5%92%8C%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86%E6%8A%A5%E5%91%8A"><span class="toc-text">语义分析和错误处理报告</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A6%82%E5%BF%B5%E9%87%8A%E4%B9%89"><span class="toc-text">概念释义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BC%96%E7%A0%81%E5%AE%8C%E6%88%90%E5%89%8D"><span class="toc-text">编码完成前</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BC%96%E7%A0%81%E5%AE%8C%E6%88%90%E5%90%8E"><span class="toc-text">编码完成后</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2024/10/23/%E8%AF%AD%E4%B9%89%E5%88%86%E6%9E%90%E5%92%8C%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86/" title="语义分析和错误处理"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/mitoma.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="语义分析和错误处理"/></a><div class="content"><a class="title" href="/2024/10/23/%E8%AF%AD%E4%B9%89%E5%88%86%E6%9E%90%E5%92%8C%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86/" title="语义分析和错误处理">语义分析和错误处理</a><time datetime="2024-10-23T06:00:00.000Z" title="Created 2024-10-23 14:00:00">2024-10-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/10/11/%E8%AF%AD%E6%B3%95%E5%88%86%E6%9E%90/" title="语法分析"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/CR7_1.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="语法分析"/></a><div class="content"><a class="title" href="/2024/10/11/%E8%AF%AD%E6%B3%95%E5%88%86%E6%9E%90/" title="语法分析">语法分析</a><time datetime="2024-10-11T06:00:00.000Z" title="Created 2024-10-11 14:00:00">2024-10-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/09/24/%E8%AF%8D%E6%B3%95%E5%88%86%E6%9E%90/" title="词法分析"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/CR7_1.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="词法分析"/></a><div class="content"><a class="title" href="/2024/09/24/%E8%AF%8D%E6%B3%95%E5%88%86%E6%9E%90/" title="词法分析">词法分析</a><time datetime="2024-09-24T06:00:00.000Z" title="Created 2024-09-24 14:00:00">2024-09-24</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/09/10/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%85%A5%E9%97%A8%E6%A6%82%E5%BF%B5/" title="机器学习基本概念"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/CR7_1.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="机器学习基本概念"/></a><div class="content"><a class="title" href="/2024/09/10/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%85%A5%E9%97%A8%E6%A6%82%E5%BF%B5/" title="机器学习基本概念">机器学习基本概念</a><time datetime="2024-09-10T06:00:00.000Z" title="Created 2024-09-10 14:00:00">2024-09-10</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/09/09/%E7%AE%97%E6%B3%95%E6%A6%82%E5%BF%B5/" title="算法概念"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/CR7_1.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="算法概念"/></a><div class="content"><a class="title" href="/2024/09/09/%E7%AE%97%E6%B3%95%E6%A6%82%E5%BF%B5/" title="算法概念">算法概念</a><time datetime="2024-09-09T06:00:00.000Z" title="Created 2024-09-09 14:00:00">2024-09-09</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2024 By Happyaped</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="Toggle Between Traditional Chinese And Simplified Chinese">繁</button><button id="darkmode" type="button" title="Toggle Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="/js/tw_cn.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@5.2.0/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.8.8/dist/lazyload.iife.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.1
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, '']
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typesetPromise()
+}</script></div><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="false"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">Search</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  Loading the Database</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="Search for Posts" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=4.13.0"></script></div></div></body></html>
