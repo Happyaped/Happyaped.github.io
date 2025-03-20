@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>CI/CD</title>
+      <link href="/2025/03/13/CI-CD/"/>
+      <url>/2025/03/13/CI-CD/</url>
+      
+        <content type="html"><![CDATA[<h2 id="概念解析"><a href="#概念解析" class="headerlink" title="概念解析"></a>概念解析</h2><ul><li>CI&#x2F;CD指的是持续集成、持续交付、持续部署，主要包含了Github Action，Jenkins，Gitlab CI&#x2F;CD，Travis CI等。通过git push自动触发</li><li>CI&#x2F;CD是DevOps的模式体现(开发和运维团队协作保障软件更好质量和更快交付)</li></ul><h2 id="GitHub-Action"><a href="#GitHub-Action" class="headerlink" title="GitHub Action"></a>GitHub Action</h2><p>Github允许开发者把每个操作写成独立的脚本文件，存放到代码仓库，使得其他开发者可以引用。一个<a href="https://github.com/marketplace?type=actions">官方市场</a>，可以搜索到他人提交的actions。另外，还有一个awesome actions的仓库，也可以找到不少action。每个 action 就是一个独立脚本，因此可以做成代码仓库，使用userName&#x2F;repoName的语法引用 action。比如，actions&#x2F;setup-node就表示github.com&#x2F;actions&#x2F;setup-node这个仓库</p><p>持续集成一次运行的过程，就是一个 workflow。workflow 文件采用 YAML 格式，GitHub 只要发现.github&#x2F;workflows目录里面有.yml文件，就会自动运行该文件。</p><ul><li>name字段是 workflow 的名称。如果省略该字段，默认为当前 workflow 的文件名。</li><li>on字段指定触发 workflow 的条件，通常是某些事件。</li><li>on.&lt;push|pull_request&gt;.&lt;tags|branches&gt;指定触发事件时，可以限定分支或标签。</li><li>jobs.<job_id>.name workflow 文件的主体是jobs字段，表示要执行的一项或多项任务。</li><li>jobs.<job_id>.needs needs字段指定当前任务的依赖关系，即运行顺序</li><li>jobs.<job_id>.runs-on runs-on字段指定运行所需要的虚拟机环境。它是必填字段。</li><li>jobs.<job_id>.steps steps字段指定每个 Job 的运行步骤，可以包含一个或多个步骤。每个步骤有如下字段<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">jobs.&lt;job_id&gt;.steps.name：步骤名称。</span><br><span class="line">jobs.&lt;job_id&gt;.steps.run：该步骤运行的命令或者 action。</span><br><span class="line">jobs.&lt;job_id&gt;.steps.env：该步骤所需的环境变量。</span><br></pre></td></tr></table></figure></li></ul><p>一个实例：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">name: Greeting from Mona</span><br><span class="line">on: push</span><br><span class="line"></span><br><span class="line">jobs:</span><br><span class="line">  my-job:</span><br><span class="line">    name: My Job</span><br><span class="line">    runs-on: ubuntu-latest</span><br><span class="line">    steps:</span><br><span class="line">    - name: Print a greeting</span><br><span class="line">      env:</span><br><span class="line">        MY_VAR: Hi there! My name is</span><br><span class="line">        FIRST_NAME: Mona</span><br><span class="line">        MIDDLE_NAME: The</span><br><span class="line">        LAST_NAME: Octocat</span><br><span class="line">      run: |</span><br><span class="line">        echo $MY_VAR $FIRST_NAME $MIDDLE_NAME $LAST_NAME.</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> Software Engineering </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 软件工程 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>软工案例分析</title>
       <link href="/2025/03/13/%E8%BD%AF%E5%B7%A5%E6%A1%88%E4%BE%8B%E5%88%86%E6%9E%90/"/>
       <url>/2025/03/13/%E8%BD%AF%E5%B7%A5%E6%A1%88%E4%BE%8B%E5%88%86%E6%9E%90/</url>
